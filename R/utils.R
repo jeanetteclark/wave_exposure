@@ -31,6 +31,8 @@ create_radial_lines <- function(x, y, res = 1, dist = 100, coord_ref = 4326){
   return(rad_lines)
 }
 
+
+
 #' Wrapper around st_intersects that determines whether an intersection occurs 
 #'
 #' @param lines sf linestring object from radial lines list
@@ -47,6 +49,8 @@ boolean_intersects <- function(line, coast, quiet = T){
   }
   bool <- nrow(result)
 }
+
+
 
 #' Calculate annual wave power metric
 #' 
