@@ -1,0 +1,41 @@
+---
+title: "Wave Exposure"
+author: "Jeanette Clark"
+date: "9/13/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, warning = F, message = F}
+library(ggplot2)
+library(leaflet)
+library(dplyr)
+```
+
+Load in 15m contour data
+
+```{r}
+contour <- read.csv("~/Desktop/R_WaveExposure/bathy_data/15m_contour_points.csv")
+```
+
+```{r, echo = F}
+contour_temp <- contour %>% 
+  mutate(x = ifelse(x < 0, x + 360, x))
+
+m <- leaflet(contour_temp)  %>%
+  addTiles() %>% 
+  addCircleMarkers(lat = ~y, lng = ~x, label = ~island, radius = 3, color = "black") %>% 
+  addCircleMarkers(lat = ~18.731, lng = ~145.67, color = "red")
+
+m
+```
+
+Load in coasts data
+
+```{r}
+coasts <- read.csv("~/Desktop/R_WaveExposure/bathy_data/coasts.csv")
+```
+

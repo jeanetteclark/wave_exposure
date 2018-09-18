@@ -1,0 +1,19 @@
+# History files
+.Rhistory
+.Rapp.history
+# Example code in package build process
+*-Ex.R
+# RStudio files
+.Rproj.user/
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf
+.Rproj.user
+.DS_Store
+._.DS_Store
+.RData
+testFormula.Rout
+testFormula_Par.Rout
+nohup.out
+coasts_original
+waves_original
