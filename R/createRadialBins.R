@@ -1,12 +1,10 @@
 library(geosphere)
-library(sp)
-library(maptools)
-library(dpyr)
+library(dplyr)
 library(tidyr)
 library(sf)
 library(stringr)
 
-source("~/Desktop/wave_exposure/utils.R")
+source("~/Desktop/wave_exposure/R/utils.R")
 
 # read in test file and create unique site_id
 contour <- read.csv("~/Desktop/wave_exposure/bathy_data/15m_contour_points.csv") %>% 
@@ -14,8 +12,8 @@ contour <- read.csv("~/Desktop/wave_exposure/bathy_data/15m_contour_points.csv")
   mutate(site_id = paste0(island, "_", str_pad(seq(1:n()), 3, "left", pad = "0")))
 
 # select one point
-#x = contour$x[11]
-#y = contour$y[11]
+x = contour$x[11]
+y = contour$y[11]
 
 rad_lines <- create_radial_lines(x, y)
 
