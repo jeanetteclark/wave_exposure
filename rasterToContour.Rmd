@@ -1,0 +1,113 @@
+---
+title: "Contours from Raster"
+author: "Jeanette Clark"
+date: "9/19/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# create contour levels from Raster
+library(raster) #gdal, rgeos
+library(sf)
+```
+
+# Pearl and Hermes
+
+```{r}
+r <- raster("~/Desktop/wave_exposure/bathymetry_rasters/PH_5m.asc/PH_5m.asc")
+# fill in some missing values
+a <- focal(r, w=matrix(1,7,7), fun=mean, na.rm = T, NAonly = T)
+
+x_r <- rasterToContour(a, levels = c(-5))
+x <- rasterToContour(r, levels = c(-5))
+```
+
+Raw raster
+```{r, eval = F}
+plot(r)
+```
+
+Raster with filled in missing values
+```{r, eval = F}
+plot(a)
+```
+
+Contour from non-filled in raster
+```{r}
+plot(x)
+```
+
+Contour from filled in raster
+```{r}
+plot(x_r)
+```
+
+# French Frigate Shoals
+
+```{r}
+# FFS presenting problems...
+r <- raster("~/Desktop/wave_exposure/bathymetry_rasters/FFS_5m.asc/FFS-5m.grd.asc")
+a <- focal(r, w=matrix(1,11,11), fun=mean, na.rm = T, NAonly = T)
+#a_agg <- aggregate(a, n = 5, na.rm = T)
+```
+
+```{r}
+plot(a)
+plot(r)
+plot(a_agg)
+```
+
+```{r}
+#x <- rasterToContour(r, levels = c(-15:0))
+x_r <- rasterToContour(a_agg, levels = c(-100))
+
+
+```
+
+```{r}
+#plot(x)
+plot(st_geometry(x_poly))
+```
+
+```{r}
+t <- rasterToPoints(r, fun=function(x){x>-10})
+
+sp <- rasterToPolygons(a_agg,fun=function(x){x>-10},dissolve = T)
+
+#addition transformation to distinguish well the set of polygons
+polys <- slot(sp@polygons[[1]], "Polygons")
+output <- SpatialPolygons(
+  Srl = lapply(1:length(polys),
+               function(x){
+                 p <- polys[[x]]
+
+                 #applying spline.poly function for smoothing polygon edges
+                 px <- slot(polys[[x]], "coords")[,1]
+                 py <- slot(polys[[x]], "coords")[,2]
+                 bz <- spline.poly(slot(polys[[x]], "coords"),100, k=3)
+                 bz <- rbind(bz, bz[1,])
+                 slot(p, "coords") <- bz               
+
+                 # create Polygons object
+                 poly <- Polygons(list(p), ID = x)
+                 return(poly)
+               }),
+  proj4string = CRS("+init=epsg:4326")
+)
+
+```
+
+```{r}
+
+r <- raster("~/Desktop/wave_exposure/bathymetry_rasters/Maro_20m.asc/Maro_20m.asc")
+
+plot(r)
+
+x_r <- rasterToContour(r, levels = c(-100, -5))
+
+plot(x_r)
+```
