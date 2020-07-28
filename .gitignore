@@ -15,7 +15,6 @@ vignettes/*.pdf
 testFormula.Rout
 testFormula_Par.Rout
 nohup.out
-coasts_original
-waves_original
+waves_original/[B-Z]*
 bathymetry_rasters
 .ipynb_checkpoints/
