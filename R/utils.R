@@ -64,8 +64,9 @@ boolean_intersects <- function(line, coast, quiet = T){
 #' 
 #' @return power_metric data.frame containing year and annual wave power metric
 annual_wave_power <- function(path, start_year, end_year, deg_bins){
-  power_metric <- read.table(path, sep = ",", header = T) %>% 
-    filter(year %in% start_year:end_year) %>% 
+  power_metric <- read.table(path, sep = ",", header = T, na.strings = "NaN") %>% 
+    filter(year %in% start_year:end_year,
+           dp %in% deg_bins) %>% 
     group_by(year) %>% 
     summarize(power = sum(CgE))
 }
