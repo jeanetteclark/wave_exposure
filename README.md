@@ -4,11 +4,11 @@ This repository contains a preliminary R impelementation of the MATALB method us
 
 Attempts to make this project more applicable to current analyses and more reproducible come in fits and starts, unfortunately I don't have time to devote much to it. I created this repository so this interesting method that I worked on for quite a while is not forever lost, as I think it is a solid approach to this problem. Although there are many limitations to using it, the method is very lightweight from a computational perspective, and thus is approachable for many research scientists without access or expertise in advanced nuemrical wave modeling techniques.
 
-`R/` contains code relevant to calculating incident wave swath and total wave exposure
-`bathy_data` contains bathymetry data for the islands of interest, prepared for the R functions
-`coats_original` contains the original coastline data
-`matlab` contains the original matlab implementation
-`python` contains an attempt to obtain satellite imagery data in order to potentially develop a better method for obtaining coastline data
-`waves_original` contains a sample of the original hindcasted WW3 data for 4 island pixels
+`R/` contains code relevant to calculating incident wave swath and total wave exposure  
+`bathy_data` contains bathymetry data for the islands of interest, prepared for the R functions  
+`coats_original` contains the original coastline data  
+`matlab` contains the original matlab implementation  
+`python` contains an attempt to obtain satellite imagery data in order to potentially develop a better method for obtaining coastline data  
+`waves_original` contains a sample of the original hindcasted WW3 data for 4 island pixels  
 
 
